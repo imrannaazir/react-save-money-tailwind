@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Link from '../Link/Link';
+import { MenuAlt1Icon, MenuIcon, XIcon } from '@heroicons/react/solid'
 
 const Navbar = () => {
+    const [open, setOpen] = useState(false)
     const routes = [
         { id: 1, name: 'Shop', link: './shop' },
         { id: 2, name: 'Deals', link: './deals' },
@@ -9,10 +11,15 @@ const Navbar = () => {
         { id: 4, name: 'Contact', link: './contact' },
     ]
     return (
-        <div>
+        <div className='bg-indigo-200'>
+            <div onClick={() => setOpen(!open)} className='w-6 h-6 md:hidden'>
 
-            <ul>{
-                routes.map(route => <Link key={route.id} route={route}></Link>)}</ul>
+                {open ? <XIcon></XIcon> : <MenuAlt1Icon></MenuAlt1Icon>}
+            </div>
+
+            <ul className={`md:flex justify-center absolute md:static duration-300 ease-in w-full bg-indigo-200 ${open ? 'top-6' : 'top-[-120px]'}`}>
+                {
+                    routes.map(route => <Link key={route.id} route={route}></Link>)}</ul>
         </div>
     );
 };
